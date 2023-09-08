@@ -1,0 +1,31 @@
+#obj_menu {
+    flex: 1;   
+}
+
+
+.objs_menu {
+    width: 100%;
+    height: 100px;
+    background-color: green;
+ }
+
+
+.obj_selector_rectangle {
+    width: 60px;
+    height: 60px;
+    background-color: red;
+    border-radius: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+
+    cursor: pointer;
+}
+.obj_selector_rectangle_icon_rectangle {
+    width: 30px;
+    height: 30px;
+    background-color: black;
+}
