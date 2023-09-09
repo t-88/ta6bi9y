@@ -50,8 +50,8 @@ class App:
                 if child["type"] == "rectangle":
                     self.children.append(
                         Rectangle(
-                            child["props"]["rect"][0],
-                            child["props"]["rect"][1],
+                            child["props"]["rect"][0] / 100 * self.width,
+                            child["props"]["rect"][1] / 100 * self.height,
                             child["props"]["rect"][2],
                             child["props"]["rect"][3],
                             child["props"]["color"],
@@ -103,31 +103,54 @@ class App:
 
 
 output_file = {
-    "aspect-ration" : 16/9,
-    "app" :  {
-        "props" : [
-            {"type": "backgroundcolor","value": 0x000000},
-        ],
-        "children": [
-            {   
-                "type" : "rectangle",
+        "aspect-ration" : 1.7777777777777777,
+        "app" :  {
+            "props" : [
+                {"type": "backgroundcolor","value": 0x000000},
+            ],
+            "children": [
+            {
+                "type": "rectangle",
                 "props": {
-                    "color" : 0xFF0000,
-                    "rect" :   [0,0,69,69],
-                },
-                "children": [],
-            },
-            {   
-                "type" : "rectangle",
+                        "color" : 0xFF0000,
+                        "rect" :   [20,19,69,69],
+                }, 
+            }
+        ,
+            {
+                "type": "rectangle",
                 "props": {
-                    "color" : 0xFF00FF,
-                    "rect" :   [420,420,10,10],
-                },
-                "children": [],
-            }            
-        ]
+                        "color" : 0xFF0000,
+                        "rect" :   [24,35,69,69],
+                }, 
+            }
+        ,
+            {
+                "type": "rectangle",
+                "props": {
+                        "color" : 0xFF0000,
+                        "rect" :   [28,53,69,69],
+                }, 
+            }
+        ,
+            {
+                "type": "rectangle",
+                "props": {
+                        "color" : 0xFF0000,
+                        "rect" :   [60,31,69,69],
+                }, 
+            }
+        ,
+            {
+                "type": "rectangle",
+                "props": {
+                        "color" : 0xFF0000,
+                        "rect" :   [50,52,69,69],
+                }, 
+            }
+        ,]
+        }
     }
-}
 
 
 pygame.init()
