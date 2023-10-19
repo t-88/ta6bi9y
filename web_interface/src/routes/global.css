@@ -1,0 +1,24 @@
+:root {
+    --grey : #D9D9D9;
+}
+
+@font-face {
+    font-family: "inter";
+    font-style: normal;
+    src: url("fonts/inter/static/Inter-ExtraLight.ttf");
+}
+@font-face {
+    font-family: "inter";
+    font-style: bold;
+    src: url("fonts/inter/static/Inter-Regular.ttf");
+}
+
+
+
+.bordered { 
+    border: solid 5px black;
+}
+
+.title_shadow {
+    box-shadow: #bcbcbc 0px 2px 10px 0px;
+}

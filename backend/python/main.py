@@ -102,7 +102,7 @@ class App:
             self.render()
 
 
-output_file = {
+output_file ={
         "aspect-ration" : 1.7777777777777777,
         "app" :  {
             "props" : [
@@ -113,39 +113,7 @@ output_file = {
                 "type": "rectangle",
                 "props": {
                         "color" : 0xFF0000,
-                        "rect" :   [20,19,69,69],
-                }, 
-            }
-        ,
-            {
-                "type": "rectangle",
-                "props": {
-                        "color" : 0xFF0000,
-                        "rect" :   [24,35,69,69],
-                }, 
-            }
-        ,
-            {
-                "type": "rectangle",
-                "props": {
-                        "color" : 0xFF0000,
-                        "rect" :   [28,53,69,69],
-                }, 
-            }
-        ,
-            {
-                "type": "rectangle",
-                "props": {
-                        "color" : 0xFF0000,
-                        "rect" :   [60,31,69,69],
-                }, 
-            }
-        ,
-            {
-                "type": "rectangle",
-                "props": {
-                        "color" : 0xFF0000,
-                        "rect" :   [50,52,69,69],
+                        "rect" :   [47,35,69,69],
                 }, 
             }
         ,]
