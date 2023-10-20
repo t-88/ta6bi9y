@@ -1,5 +1,7 @@
 import { get, writable } from "svelte/store";
-import { cur_selected_widget } from "$lib/state/store"; 
+import { AABB } from "./utils";
+import {cur_selected_widget } from "$lib/state/store";
+
 
 
 import MouseStruct from "./structs/mouse";
@@ -13,6 +15,8 @@ class CanvasStore {
         this.mouse_data = new MouseStruct();
 
         this.cur_widget = writable(undefined);
+        this.cur_hovered = writable(undefined);
+
         this.is_draging_mouse = false;  
     }
 
@@ -33,6 +37,8 @@ class CanvasStore {
     }
     
     on_mouse_down(x , y) {
+        if(get(cur_selected_widget) == "") return;
+
         this.mouse_data.start_y.set(y);
         this.mouse_data.start_x.set(x);
         this.mouse_data.x.set(x);
@@ -41,6 +47,7 @@ class CanvasStore {
         this.cur_widget.set(new RectWidget(x,y,0,0));
     }
     on_mouse_up() {
+        if(get(cur_selected_widget) == "") return;
 
         if(this.mouse_data._x == this.mouse_data._start_x && this.mouse_data._y == this.mouse_data._start_y) {
             get(this.cur_widget).rect.w.set(100);
@@ -50,6 +57,8 @@ class CanvasStore {
         this.chidlren.update((old) => [...old,get(this.cur_widget)]);
         this.cur_widget.set(undefined);
         this.is_draging_mouse = false;
+
+        cur_selected_widget.set("");
     }
     on_mouse_drag(x,y) {
         this.mouse_data.x.set(x);
@@ -69,12 +78,19 @@ class CanvasStore {
     }
 
     on_mouse_move(x,y) {
-        let mouse = {_x : x , _y : y, _w = 1, _h = 1};
-        for (let i = 0; i < this.chidlren.length; i++) {
-            // if(AABB(mouse,this.chidlren[i])) {
-                // 
-            // }
+        let mouse = {x : x , y : y, w : 1, h : 1};
+        let _cur_hovered = undefined;
+        
+        for (let i = 0; i < get(this.chidlren).length; i++) {
+            let rect = get(this.chidlren)[i].rect;
+            rect = {x : rect._x,y : rect._y,w : rect._w,h : rect._h,}
+
+            if(AABB(mouse, rect )) {
+                _cur_hovered = get(this.chidlren)[i];
+            }
         }
+
+        this.cur_hovered.set(_cur_hovered);
     } 
 }
 

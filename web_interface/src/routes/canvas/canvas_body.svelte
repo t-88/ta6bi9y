@@ -16,7 +16,9 @@
             <RectWidget x={cur_widget._x} y={cur_widget._y} w={cur_widget._w} h={cur_widget._h}/>
         {/if}
 
-        <Outline />
+        {#if cur_hovered} 
+            <Outline x={cur_hovered._x} y={cur_hovered._y} w={cur_hovered._w} h={cur_hovered._h}/>
+        {/if}
 </main>
 
 
@@ -31,7 +33,6 @@
         canvas_store.on_mouse_click(mouse_pos.x,mouse_pos.y);
     }
     function on_mouse_down(_) {
-
         mouse_down = true;
         canvas_store.on_mouse_down(mouse_pos.x,mouse_pos.y);
     }
@@ -40,13 +41,9 @@
         canvas_store.on_mouse_up(mouse_pos.x,mouse_pos.y);
     }
     function on_mouse_drag(event) { 
-        mouse_pos =  {
-                      x : parseInt(event.clientX - ref_canvas.getBoundingClientRect().x)  ,
-                      y : parseInt(event.clientY - ref_canvas.getBoundingClientRect().y)  
-                    };
-        
-
+        mouse_pos =  { x : parseInt(event.clientX - ref_canvas.getBoundingClientRect().x)  , y : parseInt(event.clientY - ref_canvas.getBoundingClientRect().y)};
         canvas_store.on_mouse_move(mouse_pos.x,mouse_pos.y);
+
         if(!mouse_down) {return;} 
         canvas_store.on_mouse_drag(mouse_pos.x,mouse_pos.y);
     }
@@ -58,9 +55,11 @@
     let children = [];
     let mouse_down = false;
     let cur_widget = undefined;
+    let cur_hovered = undefined;
 
     canvas_store.chidlren.subscribe(value => { children = [...value]; });
     canvas_store.cur_widget.subscribe(value => {  cur_widget =  value; });
+    canvas_store.cur_hovered.subscribe(value => {  cur_hovered =  value; });
 </script>
 
 

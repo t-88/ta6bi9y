@@ -12,7 +12,7 @@ class MouseStruct {
     }
 
 
-    get _start_x() {return get(this.start_x)};
+get _start_x() {return get(this.start_x)};
     get _start_y() {return get(this.start_y)};
     get _x() {return get(this.x)};
     get _y() {return get(this.y)};

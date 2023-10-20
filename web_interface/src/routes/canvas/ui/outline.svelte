@@ -18,8 +18,8 @@
 <style>
     div {
         position: absolute;
-        background-color: black;
+        background-color: transparent;
         border: none;
-        outline:  2px black solid;
+        outline:  4px black solid;
     }
 </style>
