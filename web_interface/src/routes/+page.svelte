@@ -6,14 +6,11 @@
 
 
 <script>
-    import {init_context} from "$lib/state/context"
 
     import SelectionContainer from "./select/selection_container.svelte";
     import Cavans from "./canvas/cavans.svelte";
     import PropMenu from "./props/prop_menu.svelte";
 
-
-    init_context();
 
 </script>
 

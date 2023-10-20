@@ -2,7 +2,7 @@
     <div>
         <ColorSelector on_change={on_select_color} />
         <h2 bind:this={ref_color_text}>#FFFFFF</h2>
-        <InputField placeholder="Opacity" max_chars={3} value={100} on_change={on_change_opacity} />
+        <InputField placeholder="Opacity" max_chars={3} value={100} on_change_callback={on_change_opacity} />
     </div>
 </TemplateProp>
 
@@ -31,7 +31,6 @@
     div {
         display: flex;
         gap: 10px;
-        width: 80%;
         margin: auto;
         align-items: center;
         justify-content: space-around;

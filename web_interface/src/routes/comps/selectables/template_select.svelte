@@ -1,4 +1,4 @@
-<main>
+<main role="presentation" on:click={on_select}>
     <slot/>
     <h3>{name}</h3>
 </main>
@@ -6,6 +6,10 @@
 
 <script>
     export let name = "";
+
+    export let on_select = () => {
+    } 
+
 </script>
 
 <style>

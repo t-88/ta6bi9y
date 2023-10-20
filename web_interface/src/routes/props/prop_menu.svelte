@@ -1,14 +1,16 @@
 <main class="bordered">
     <Bar title={"App"} menu_bar={false}/>
     <div id="prop-container">
+        <SizeProp      />
         <BackgroundProp/>
     </div>
 
 </main>
 
 <script>
-    import Bar from "../comps/bar.svelte";
+    import Bar from "../comps/props/bar.svelte";
     import BackgroundProp from "../comps/props/background_prop.svelte";
+    import SizeProp from "../comps/props/size_prop.svelte";
 
 </script>
 

@@ -18,6 +18,8 @@
 <style>
     div {
         position: absolute;
-        background-color: red;
+        background-color: black;
+        border: none;
+        outline:  2px black solid;
     }
 </style>

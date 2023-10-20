@@ -1,13 +1,13 @@
 <main class="bordered">
     <Bar title={"Basic Shapes"} />
-    <RectWidget />
-    <BtnWidget />
+    <RectSelect />
+    <BtnSelect  />
 </main>
 
 <script>
-    import Bar from "../comps/bar.svelte";
-    import RectWidget from "../comps/widgets/rect_widget.svelte";
-    import BtnWidget from "../comps/widgets/btn_widget.svelte";
+    import Bar from "../comps/props/bar.svelte";
+    import RectSelect from "../comps/selectables/rect_select.svelte";
+    import BtnSelect from "../comps/selectables/btn_select.svelte";
 </script>
 
 <style lang="scss">

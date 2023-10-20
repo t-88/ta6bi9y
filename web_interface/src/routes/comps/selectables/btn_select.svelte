@@ -1,9 +1,9 @@
-<SelectedWidget name={"Button"}>
+<TemplateSelect name={"Button"}>
     <div class="icon"></div>
-</SelectedWidget>
+</TemplateSelect>
 
 <script>
-    import SelectedWidget from "./selected_widget.svelte";
+    import TemplateSelect from "./template_select.svelte";
 </script>
 
 

@@ -5,7 +5,7 @@
 </main>
 
 <script>
-    import Bar from "../comps/bar.svelte";
+    import Bar from "../comps/props/bar.svelte";
 
 </script>
 
