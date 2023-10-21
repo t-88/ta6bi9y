@@ -8,11 +8,11 @@ export default class Vector2Prop extends TemplateProp {
         this.y = writable(y);
         this.id = "vector2";
     }
+    
 
     get _x() { return get(this.x); }
     get _y() { return get(this.y); }
 
     set _x(value) { this.x.set(value); }
     set _y(value) { this.y.set(value); }
-
 };

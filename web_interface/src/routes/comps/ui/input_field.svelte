@@ -16,7 +16,6 @@
 
 
 
-
 <script>
     export let placeholder = "";
     export let max_chars = 20;

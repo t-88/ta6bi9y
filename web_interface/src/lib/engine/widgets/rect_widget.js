@@ -1,3 +1,4 @@
+import { get , writable } from "svelte/store";
 import ColorProp from "../props/color_prop";
 import Vector2Prop from "../props/vector2_prop";
 class RectWidget {
@@ -10,17 +11,24 @@ class RectWidget {
             position :  new Vector2Prop(x,y),
             size :  new Vector2Prop(w,h),
         };
+
+
+        this.is_hovering_over = writable(false);
     }
 
     get _x() { return this.props.position._x; }
     get _y() { return this.props.position._y; }
     get _w() { return this.props.size._x; }
     get _h() { return this.props.size._y; }
+    get _is_hovering_over() {return get(this.is_hovering_over);}
 
-    set _x(value) { return this.props.position._x = value; }
-    set _y(value) { return this.props.position._y = value; }
-    set _w(value) { return this.props.size._x = value; }
-    set _h(value) { return this.props.size._y = value; }
+    set _x(value) { this.props.position._x = value; }
+    set _y(value) { this.props.position._y = value; }
+    set _w(value) { this.props.size._x = value; }
+    set _h(value) { this.props.size._y = value; }
+    set _is_hovering_over(value) {this.is_hovering_over.set(value);}
+
+
 
 }
 

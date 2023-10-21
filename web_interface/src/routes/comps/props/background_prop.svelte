@@ -13,7 +13,7 @@
     import InputField from "../ui/input_field.svelte";
 
     function on_select_color(color) {
-        prop._color = color;
+        prop._color = color.toLocaleUpperCase();
     }
     function on_change_opacity(value) { }
 

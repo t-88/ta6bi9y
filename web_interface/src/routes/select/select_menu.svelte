@@ -12,6 +12,6 @@
 
 <style lang="scss">
     main {
-        flex: 1;
+        flex: 1 0 0;
     }
 </style>

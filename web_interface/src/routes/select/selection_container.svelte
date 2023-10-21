@@ -5,7 +5,7 @@
 
 <script>
     import SelectMenu from "./select_menu.svelte";
-    import TreeMenu from "./tree_menu.svelte";
+    import TreeMenu from "./tree/tree_menu.svelte";
 </script>
 
 <style lang="scss">

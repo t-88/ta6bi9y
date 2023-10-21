@@ -22,7 +22,8 @@ class CanvasStore {
 
     }
 
-
+    get _chidlren() { return get(this.chidlren);}
+    
     calc_cur_widge_size() {
         if(!get(this.cur_widget)) return;
 
@@ -94,10 +95,12 @@ class CanvasStore {
             rect = {x : rect._x,y : rect._y,w : rect._w,h : rect._h,}
 
             if(AABB(mouse, rect )) {
+                get(this.chidlren)[i]._is_hovering_over = true;
                 _cur_hovered = get(this.chidlren)[i];
+            } else {
+                get(this.chidlren)[i]._is_hovering_over = false;
             }
         }
-
         this.cur_hovered.set(_cur_hovered);
     } 
 }
