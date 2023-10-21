@@ -28,7 +28,7 @@
 
     function on_change(val) {
         if (val == "") { ref_input.value = value; }
-        on_change_callback(value);
+        on_change_callback(val);
     }
 </script>
 

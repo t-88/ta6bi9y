@@ -1,6 +1,7 @@
 import { get, writable } from "svelte/store";
 import { AABB } from "./utils";
 import {cur_selected_widget } from "$lib/state/store";
+import pmenu_state from "./prop_menu";
 
 
 
@@ -18,20 +19,23 @@ class CanvasStore {
         this.cur_hovered = writable(undefined);
 
         this.is_draging_mouse = false;  
+
     }
 
 
     calc_cur_widge_size() {
-        get(this.cur_widget).rect.w.set(this.mouse_data._x - this.mouse_data._start_x);
-        get(this.cur_widget).rect.h.set(this.mouse_data._y - this.mouse_data._start_y);
+        if(!get(this.cur_widget)) return;
+
+        get(this.cur_widget)._w = this.mouse_data._x - this.mouse_data._start_x;
+        get(this.cur_widget)._h = this.mouse_data._y - this.mouse_data._start_y;
 
         if(get(this.cur_widget)._w  < 0){
-            get(this.cur_widget).rect.x.update((value) => this.mouse_data._x );
-            get(this.cur_widget).rect.w.update((value) => Math.abs(value));
+            get(this.cur_widget)._x = this.mouse_data._x ;
+            get(this.cur_widget)._w = Math.abs(get(this.cur_widget)._w);
         } 
         if(get(this.cur_widget)._h  < 0){
-            get(this.cur_widget).rect.y.set(this.mouse_data._y);
-            get(this.cur_widget).rect.h.update((value) => Math.abs(value));
+            get(this.cur_widget)._y = this.mouse_data._y;
+            get(this.cur_widget)._h = Math.abs(get(this.cur_widget)._h);
         }         
         this.cur_widget.update((value) => value);
     }
@@ -50,8 +54,8 @@ class CanvasStore {
         if(get(cur_selected_widget) == "") return;
 
         if(this.mouse_data._x == this.mouse_data._start_x && this.mouse_data._y == this.mouse_data._start_y) {
-            get(this.cur_widget).rect.w.set(100);
-            get(this.cur_widget).rect.h.set(100);
+            get(this.cur_widget)._w = 100;
+            get(this.cur_widget)._h = 100;
         }
 
         this.chidlren.update((old) => [...old,get(this.cur_widget)]);
@@ -75,6 +79,10 @@ class CanvasStore {
         this.mouse_data.x.set(x);
         this.mouse_data.y.set(y);
 
+        if(get(this.cur_hovered) != undefined) {
+            pmenu_state.selected_widget.set(get(this.cur_hovered));
+        }
+
     }
 
     on_mouse_move(x,y) {
@@ -82,7 +90,7 @@ class CanvasStore {
         let _cur_hovered = undefined;
         
         for (let i = 0; i < get(this.chidlren).length; i++) {
-            let rect = get(this.chidlren)[i].rect;
+            let rect = get(this.chidlren)[i];
             rect = {x : rect._x,y : rect._y,w : rect._w,h : rect._h,}
 
             if(AABB(mouse, rect )) {

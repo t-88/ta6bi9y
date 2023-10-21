@@ -1,12 +1,10 @@
 <TemplateProp title={"Size"}>
     <div>
-
         <section>
-            <InputField placeholder="H" max_chars={3} value={0} on_change_callback={change_aspect_ratio} />
-            <InputField placeholder="W" max_chars={3} value={0} on_change_callback={change_aspect_ratio} />
+            <InputField value={prop._x} placeholder="H" max_chars={3} on_change_callback={on_change_w_callback} />
+            <InputField value={prop._y} placeholder="W" max_chars={3} on_change_callback={on_change_h_callback} />
         </section>
         <InputField placeholder="Aspect ratio" max_chars={4} value={'16:9'} on_change_callback={change_aspect_ratio} />
-
     </div>
 </TemplateProp>
 
@@ -15,8 +13,15 @@
     import TemplateProp from "./template_prop.svelte";
     import InputField from "../ui/input_field.svelte";
 
-    function change_aspect_ratio(value) {
-    }
+    function change_aspect_ratio(value) {}
+
+    function on_change_w_callback(value) { prop._x = value; console.log(value); }
+    function on_change_h_callback(value) { prop._y = value;}
+
+
+    export let prop;
+
+    
 </script>
 
 

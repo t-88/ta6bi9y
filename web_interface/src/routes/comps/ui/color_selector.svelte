@@ -1,11 +1,11 @@
-<div  style={`background: ${color};`} class="color-selector bordered" on:click={show_color_selector}>
+<div  role="presentation" style={`background: ${color};`} class="color-selector bordered" on:click={show_color_selector}>
     <input bind:this={ref_input} type="color" on:change={select_color}>
 </div>
 
 
 <script>
     let ref_input;
-    let color = "#FFFFFF";
+    export let color = "#FFFFFF";
 
     export let on_change = () => {};
 

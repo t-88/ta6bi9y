@@ -10,7 +10,8 @@
 
 <style lang="scss">
     main {
-        flex: 1;
+        width: 25%;
+        min-width: 350px;
         display: flex;
         flex-direction: column;
         overflow: hidden;

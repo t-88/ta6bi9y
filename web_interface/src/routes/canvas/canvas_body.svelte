@@ -8,12 +8,12 @@
 
         {#each children as child}
             {#if child.id == "Rect"} 
-                <RectWidget x={child._x} y={child._y} w={child._w} h={child._h}/>
+                <RectWidget rect={child} />
             {/if}
         {/each}
 
         {#if cur_widget} 
-            <RectWidget x={cur_widget._x} y={cur_widget._y} w={cur_widget._w} h={cur_widget._h}/>
+            <RectWidget rect={cur_widget} />
         {/if}
 
         {#if cur_hovered} 
