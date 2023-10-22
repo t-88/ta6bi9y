@@ -6,12 +6,14 @@
 
 
 <script>
-
     import SelectionContainer from "./select/selection_container.svelte";
     import Cavans from "./canvas/cavans.svelte";
     import PropMenu from "./props/prop_menu.svelte";
 
+    import CodingArena from "./coding_arena/+page.svelte";
 
+
+    import { cur_page, LAYOUT_ENGINE , CODING_ARENA } from "$lib/state/store";
 </script>
 
 

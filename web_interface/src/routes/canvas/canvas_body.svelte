@@ -23,10 +23,13 @@
 
 
 <script>
+
     import "../global.css"
     import { canvas_store  } from "$lib/engine/core";
     import RectWidget from "../comps/widgets/rect_widget.svelte";
     import Outline from "./ui/outline.svelte";
+    import { calc_mouse_offset } from "$lib";
+
 
 
     function on_mouse_click(_) { 
@@ -41,7 +44,7 @@
         canvas_store.on_mouse_up(mouse_pos.x,mouse_pos.y);
     }
     function on_mouse_drag(event) { 
-        mouse_pos =  { x : parseInt(event.clientX - ref_canvas.getBoundingClientRect().x)  , y : parseInt(event.clientY - ref_canvas.getBoundingClientRect().y)};
+        mouse_pos = calc_mouse_offset(event,ref_canvas);
         canvas_store.on_mouse_move(mouse_pos.x,mouse_pos.y);
 
         if(!mouse_down) {return;} 

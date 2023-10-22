@@ -13,6 +13,6 @@ export default class Vector2Prop extends TemplateProp {
     get _x() { return get(this.x); }
     get _y() { return get(this.y); }
 
-    set _x(value) { this.x.set(value); }
-    set _y(value) { this.y.set(value); }
+    set _x(value) { this.x.set(parseInt(value)); }
+    set _y(value) { this.y.set(parseInt(value)); }
 };

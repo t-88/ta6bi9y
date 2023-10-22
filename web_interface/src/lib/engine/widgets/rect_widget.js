@@ -22,10 +22,10 @@ class RectWidget {
     get _h() { return this.props.size._y; }
     get _is_hovering_over() {return get(this.is_hovering_over);}
 
-    set _x(value) { this.props.position._x = value; }
-    set _y(value) { this.props.position._y = value; }
-    set _w(value) { this.props.size._x = value; }
-    set _h(value) { this.props.size._y = value; }
+    set _x(value) { this.props.position._x = parseInt(value); }
+    set _y(value) { this.props.position._y = parseInt(value); }
+    set _w(value) { this.props.size._x =     parseInt(value); }
+    set _h(value) { this.props.size._y =     parseInt(value); }
     set _is_hovering_over(value) {this.is_hovering_over.set(value);}
 
 

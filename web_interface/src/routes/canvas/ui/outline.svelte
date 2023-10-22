@@ -1,4 +1,5 @@
-<div style={style}>
+<div style={style} class={$$props.class}>
+    <slot />
 </div>
 
 <script>
@@ -20,6 +21,6 @@
         position: absolute;
         background-color: transparent;
         border: none;
-        outline:  4px black solid;
+        outline:  4px rgb(25, 170, 255) solid;
     }
 </style>

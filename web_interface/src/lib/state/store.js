@@ -17,6 +17,11 @@ export {
 
 
 
-const cur_selected_widget = writable("");
 
-export {cur_selected_widget}
+const LAYOUT_ENGINE = "layout-engine";
+const CODING_ARENA = "coding-arena";
+const cur_page = writable(LAYOUT_ENGINE);
+
+const cur_selected_widget = writable(undefined);
+
+export {cur_page, LAYOUT_ENGINE , CODING_ARENA , cur_selected_widget}
