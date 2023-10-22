@@ -16,6 +16,8 @@
             <RectWidget rect={cur_widget} />
         {/if}
 
+
+
         {#if cur_hovered} 
             <Outline x={cur_hovered._x} y={cur_hovered._y} w={cur_hovered._w} h={cur_hovered._h}/>
         {/if}

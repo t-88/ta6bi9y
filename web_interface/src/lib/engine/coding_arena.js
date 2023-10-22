@@ -1,7 +1,7 @@
 import { get, writable } from "svelte/store";
 import Vector2Prop from "./props/vector2_prop";
-
-
+import BlockStruct from "./structs/block";
+import { AABB, AABB_exp } from "./utils";
 class CodingArena {
     constructor() {
         this.cur_element = {
@@ -17,24 +17,52 @@ class CodingArena {
         this.blocks = writable([]);
     }
 
+    move_to_mouse_pos(x,y) {
+        if(get(this.cur_selected_block) == "") return;
+        if(AABB_exp(x,y,1,1,this.cur_element.pos._x,this.cur_element.pos._y,this.cur_element.size._x,this.cur_element.size._y))  return
+        
+        
+
+        let dir_x =  this.cur_element.pos._x > x ? -1 : 1;
+        let dis_x = 0; 
+        if(x > this.cur_element.pos._x + this.cur_element.size._x) {
+            dis_x = Math.ceil(Math.abs(x - (this.cur_element.pos._x + this.cur_element.size._x)) / this.grid_size);
+        } else if(this.cur_element.pos._x > x) {
+            dis_x = Math.ceil((this.cur_element.pos._x - x) / this.grid_size);
+        }
+        this.cur_element.pos._x =  this.cur_element.pos._x + this.grid_size  * dis_x * dir_x;
+
+        let dir_y =  this.cur_element.pos._y > y ? -1 : 1;
+        let dis_y = 0; 
+        if(y > this.cur_element.pos._y + this.cur_element.size._y) {
+            dis_y = Math.ceil(Math.abs(y - (this.cur_element.pos._y + this.cur_element.size._y)) / this.grid_size);
+        } else if(this.cur_element.pos._y > y) {
+            dis_y = Math.ceil((this.cur_element.pos._y - y) / this.grid_size);
+        }
+        this.cur_element.pos._y =  this.cur_element.pos._y + this.grid_size  * dis_y * dir_y;
+    }
+
     on_mouse_click(x,y) {
         this.blocks.update((val) => [...val,
             new BlockStruct(
-                type = "event",
-                id = get(this.cur_selected_block),
-                x = get(this.cur_element.pos.x),
-                y = get(this.cur_element.pos.y),
-                w = get(this.cur_element.pos.y),
-                h = get(this.cur_element.pos.y),
+                "event",
+                get(this.cur_selected_block),
+                get(this.cur_element.pos.x),
+                get(this.cur_element.pos.y),
+                get(this.cur_element.size.x),
+                get(this.cur_element.size.y),
             )]);
+            
+        
         this.cur_selected_block.set("");
+        this.cur_element.size._x = 0; this.cur_element.size._y = 0;
     }
 
 
 
     on_mouse_move(x,y) {
-        this.cur_element.pos._x = x;
-        this.cur_element.pos._y = y;
+        this.move_to_mouse_pos(x,y);
+           
     }
 }
 

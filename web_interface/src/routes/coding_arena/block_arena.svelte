@@ -1,6 +1,8 @@
 <main  on:mousemove={on_mouse_move}
+       on:click={on_mouse_click}
        bind:this={ref_main} 
        class="bordered"
+       role="presentation"
     >
     {#each {length : y_amount} as _ , y}
         {#each {length : x_amount} as _ , x}
@@ -8,8 +10,21 @@
         {/each}
     {/each}
 
-    <Outline x ={ outlined_rect.x * ca_state.grid_size + 4}
-             y ={ outlined_rect.y * ca_state.grid_size  + 4}
+
+
+    {#each blocks as block}
+    <Outline x ={ block.x }
+             y ={ block.y }
+             w ={ block.w }
+             h ={ block.h }
+        class = "outlined outline_placed"
+    >
+        <h2>{block.id}</h2>
+    </Outline>
+    {/each}
+
+    <Outline x ={ outlined_rect.x }
+             y ={ outlined_rect.y }
              w ={ outlined_rect.w }
              h ={ outlined_rect.h }
              class = "outlined"
@@ -32,22 +47,10 @@
         mouse_pos = calc_mouse_offset(event,ref_main);
         ca_state.on_mouse_move(mouse_pos.x,mouse_pos.y);
     }
-    function is_outside_outlined() {
-        return !AABB(
-            {
-                x : mouse_pos.x,
-                y : mouse_pos.y,
-                w : 1,
-                h : 1,
-            },
-            {
-                x : outlined_rect.x * ca_state.grid_size + 4,
-                y : outlined_rect.y * ca_state.grid_size + 4,
-                w : outlined_rect.w,
-                h : outlined_rect.h,
-            }
-        );
-    }    
+    function on_mouse_click() {
+        mouse_pos = calc_mouse_offset(event,ref_main);
+        ca_state.on_mouse_click(mouse_pos.x,mouse_pos.y);
+    }
 
     onMount(() => {
         let rect = ref_main.getBoundingClientRect();
@@ -63,20 +66,15 @@
     let y_amount = ca_state.grid_size;
     let cur_selected_block;
     ca_state.cur_selected_block.subscribe((val) => cur_selected_block = val);
+
+    let blocks;
+    ca_state.blocks.subscribe((val) => blocks = val);
     
     
     
     let outlined_rect = { x : 0, y : 0, w : 0, h : 0, };
-    ca_state.cur_element.pos.x.subscribe((val) => {
-        if(is_outside_outlined()) {
-            outlined_rect.x  = Math.floor(val / ca_state.grid_size)
-        }
-    });
-    ca_state.cur_element.pos.y.subscribe((val) => {
-        if(is_outside_outlined()) {
-            outlined_rect.y  = Math.floor(val / ca_state.grid_size)
-        }        
-    });
+    ca_state.cur_element.pos.x.subscribe((val) => { outlined_rect.x  = val; });
+    ca_state.cur_element.pos.y.subscribe((val) => { outlined_rect.y  = val; });
     ca_state.cur_element.size.x.subscribe((val) => outlined_rect.w = val);
     ca_state.cur_element.size.y.subscribe((val) => outlined_rect.h = val);
 
@@ -103,4 +101,7 @@
         border-radius: 4px;
     }
 
+    main :global(.outline_placed) {
+        outline: none;
+    }
 </style>
