@@ -2,6 +2,8 @@ import { get, writable } from "svelte/store";
 import Vector2Prop from "./props/vector2_prop";
 import BlockStruct from "./structs/block";
 import { AABB_exp } from "./utils";
+import TemplateBlock from "../../routes/coding_arena/blocks/template_block.svelte";
+
 class CodingArena {
     constructor() {
         this.grid_size = 30;
@@ -66,9 +68,9 @@ class CodingArena {
                     get(this.cur_element.pos.y),
                     get(this.cur_element.size.x),
                     get(this.cur_element.size.y),
+                    TemplateBlock,
                 )
             )]);
-            
         
         this.cur_selected_block.set("");
         this.cur_element.size._x = 0; this.cur_element.size._y = 0;

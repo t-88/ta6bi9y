@@ -7,11 +7,14 @@
     <PointGrid x_count={x_amount} y_count={y_amount} grid_size={ca_state.grid_size} />
 
     {#each blocks as block}
-        <TemplateBlock  placed={true} block_pointer = {block} class = "outlined outline_placed">
+    <div style="position: absolute; top: 0px;">
+    </div>
+        <svelte:component this={get(block).elem_block} placed={true} block_pointer = {block} class = "outlined outline_placed">
             <h2>{get(block).id}</h2>
-        </TemplateBlock>
+        </svelte:component>
     {/each}
 
+    {JSON.stringify(cur_selected_block)}
     {#if cur_selected_block != ""}
         <TemplateBlock placed={false} block={outlined_rect} class = "outlined" >
             <h2>{cur_selected_block}</h2>
@@ -31,6 +34,7 @@
     import TemplateBlock from "./blocks/template_block.svelte";
     import PointGrid from "./ui/point_grid.svelte";
     import WireManager from "./wire_manager.svelte";
+    import TemplateProp from "../comps/props/template_prop.svelte";
 
 
     function on_mouse_move(event) {
@@ -59,7 +63,10 @@
     ca_state.cur_selected_block.subscribe((val) => cur_selected_block = val);
 
     let blocks;
-    ca_state.blocks.subscribe((val) => blocks = val);
+    ca_state.blocks.subscribe((val) => {
+        blocks = val;
+
+    });
     
     
     
