@@ -1,28 +1,84 @@
-<main role="presentation" class={$$props.class} on:click={on_click}>
-    <h1>{title}</h1>
+<main class = {$$props.class} style={style}>
+    {#if placed}
+        <div bind:this={ref_prev_connector} role="presentation" class="prev-connector connector" on:click={() => {connector_selected("prev")}}></div>
+        <div bind:this={ref_next_connector} role="presentation" class="next-connector connector" on:click={() => {connector_selected("next")}}></div>
+    {/if}
     <slot />
 </main>
-
-
 <script>
-    export let title;
-    export let on_click;
+    import ca_state from "$lib/engine/coding_arena";
+    import { onMount } from "svelte";
+    
+    function connector_selected(type) {
+        ca_state.connector_selected(type,block_pointer);
+    }
+    onMount(() => {
+        if(block_pointer) {
+            block_pointer.update((val) => {
+                return {
+                    ...val,
+                    elem_ref_prev_connected: ref_prev_connector,
+                    elem_ref_next_connected: ref_next_connector
+                }
+            })
+            block_pointer.subscribe((val) => {
+                block = {x : val.x, y : val.y , w : val.w , h : val.h};
+            });
+        }
+    });
+
+    
+    export let block_pointer = undefined;
+    export let placed = false;
+    export let block = {x : 0, y : 0 , w : 0 , h : 0};
+
+
+    let ref_prev_connector;
+    let ref_next_connector;
+
+
+
+
+    
+    $: style = `
+        left:   ${block.x}px;
+        top:    ${block.y}px;
+        width:  ${block.w}px;
+        height: ${block.h}px;
+        ${placed ? "outline: none;" : ""}
+    `; 
+
 </script>
 
 <style>
-    main {
-        height: 60px;
-        background-color: #41AF59;
-        border-radius: 5px;
+    .connector {
+        width:  18px;
+        height: 18px;
+        background: black;
+        position: absolute;
+        left: calc(50% - 18px / 2);
+    }
+    .connector:hover {
+        background-color:  rgb(25, 170, 255);
+    }
 
+    .prev-connector {
+        top: calc(18px / -2);
+    }
+    .next-connector {
+        bottom: calc(18px / -2);
+    }
+
+    main {
+        position: absolute;
+        background-color: transparent;
+        border: none;
+        outline:  4px rgb(25, 170, 255) solid;
+    
+        background-color: black;
         display: flex;
         align-items: center;
-        cursor: pointer;
-    }
-    h1 {
-        margin: 0;
-        padding: 0;
-        margin: auto;
-        color: white;
+        justify-content: center;
+        border-radius: 4px;
     }
 </style>

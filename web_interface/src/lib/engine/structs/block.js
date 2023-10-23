@@ -6,5 +6,16 @@ export default  class BlockStruct {
         this.y = y;
         this.w = w;
         this.h = h;
+    
+        this.prev_connected = undefined;
+        this.next_connected = undefined;
+
+
+        this.prev_connected_uuid = crypto.randomUUID().slice(0,4);
+        this.next_connected_uuid = crypto.randomUUID().slice(0,4);
+        this.elem_ref_prev_connected = undefined;
+        this.elem_ref_next_connected = undefined;
     }
+
+
 }
