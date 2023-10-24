@@ -21,16 +21,13 @@
         phone_bottom_height ,
     } from "$lib/state/store";
 
-    import { cur_page, LAYOUT_ENGINE, CODING_ARENA } from "$lib/state/store";
-
-    import "../global.css"
+    import "../../global.css"
 
     import CanvasBody from "./canvas_body.svelte";
     import Button from "../comps/ui/button.svelte";
 
 
     function on_code() {
-        cur_page.set(CODING_ARENA);
         goto("/coding_arena",false);
     }
 

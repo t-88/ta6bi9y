@@ -2,7 +2,7 @@ import { get, writable } from "svelte/store";
 import Vector2Prop from "./props/vector2_prop";
 import BlockStruct from "./structs/block";
 import { AABB_exp } from "./utils";
-import TemplateBlock from "../../routes/coding_arena/blocks/template_block.svelte";
+import TemplateBlock from "../../routes/coding_arena/arena/blocks/template_block.svelte";
 
 class CodingArena {
     constructor() {

@@ -4,7 +4,7 @@
 
 
 <script>
-    import Button from "../../comps/ui/button.svelte";
+    import Button from "../../../layout_interface/comps/ui/button.svelte";
     export let title;
 </script>
 
@@ -12,7 +12,9 @@
     main :global(.btn) {
         width: 100%;
         border-top : none;
-        border-left : none; border-right : none;
+        border-left : none; 
+        border-right : none;
+        
         border-radius: 0;
         padding : 15px 15px;
         text-align: start;

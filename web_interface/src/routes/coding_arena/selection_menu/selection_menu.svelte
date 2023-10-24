@@ -10,10 +10,10 @@
 
 
 <script>
-    import "../global.css"
-    import CategoryBlock from "./ui/category_block.svelte";
-    import EventTemplate from "./selection_blocks/events/event_template.svelte";
-    import DebugAction from "./selection_blocks/actions/debug_action.svelte";
+    import "../../global.css"
+    import CategoryBlock from "./comp/category_block.svelte";
+    import EventTemplate from "./comp/selection_blocks/events/event_template.svelte";
+    import DebugAction from "./comp/selection_blocks/actions/debug_action.svelte";
 
     import ca_state from "$lib/engine/coding_arena";
     function on_select_event(args) {

@@ -1,12 +1,12 @@
 <main>
-    <BlockSelection />
-    <BlockArena/>
+    <SelectionMenu />
+    <Arena/>
 </main>
 
 
 <script>
-    import BlockSelection from "./block_selection.svelte";
-    import BlockArena from "./block_arena.svelte";
+    import SelectionMenu from "./selection_menu/selection_menu.svelte";
+    import Arena from "./arena/arena.svelte";
 </script>
 
 
@@ -17,11 +17,8 @@
         padding: 0;
         margin: 0;
         font-family: "inter";
-        
     }
-    :global(::-webkit-scrollbar) {
-        display: none;
-    }
+    :global(::-webkit-scrollbar) { display: none; }
 
     main {
         display: flex;

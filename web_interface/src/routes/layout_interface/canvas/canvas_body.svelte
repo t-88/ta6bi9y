@@ -26,7 +26,7 @@
 
 <script>
 
-    import "../global.css"
+    import "../../global.css"
     import { canvas_store  } from "$lib/engine/core";
     import RectWidget from "../comps/widgets/rect_widget.svelte";
     import Outline from "./ui/outline.svelte";
