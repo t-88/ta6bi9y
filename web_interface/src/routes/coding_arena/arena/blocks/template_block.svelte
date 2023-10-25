@@ -1,9 +1,16 @@
 <main class = {$$props.class} style={style}>
     {#if placed}
-        <div bind:this={ref_prev_connector} role="presentation" class="prev-connector connector" on:click={() => {connector_selected("prev")}}></div>
-        <div bind:this={ref_next_connector} role="presentation" class="next-connector connector" on:click={() => {connector_selected("next")}}></div>
+        {#if has_prev_connector}
+            <div bind:this={ref_prev_connector} role="presentation" class="prev-connector connector" on:click={() => {connector_selected("prev")}}></div>
+        {/if}
+        {#if has_next_connector}
+            <div bind:this={ref_next_connector} role="presentation" class="next-connector connector" on:click={() => {connector_selected("next")}}></div>
+        {/if}
+
+        {#if has_right_connector}
+            <div bind:this={ref_right_connector} role="presentation" class="right-connector connector" on:click={() => {connector_selected("right")}}></div>
+        {/if}
     {/if}
-    <slot />
 </main>
 <script>
     import ca_state from "$lib/engine/coding_arena";
@@ -18,7 +25,9 @@
                 return {
                     ...val,
                     elem_ref_prev_connected: ref_prev_connector,
-                    elem_ref_next_connected: ref_next_connector
+                    elem_ref_next_connected: ref_next_connector,
+                    ref_right_connector: ref_next_connector,
+                    
                 }
             })
             block_pointer.subscribe((val) => {
@@ -31,10 +40,15 @@
     export let block_pointer = undefined;
     export let placed = false;
     export let block = {x : 0, y : 0 , w : 0 , h : 0};
+    export let has_prev_connector = true;
+    export let has_next_connector = true;
+    export let has_right_connector = false;
+    
 
 
-    let ref_prev_connector;
-    let ref_next_connector;
+    let ref_prev_connector = undefined;
+    let ref_next_connector = undefined;
+    let ref_right_connector = undefined;
 
 
 

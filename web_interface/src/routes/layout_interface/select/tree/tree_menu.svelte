@@ -11,10 +11,10 @@
 </main>
 
 <script>
-    import Bar from "../../comps/props/bar.svelte";
+    import Bar from "../../comps/ui/bar.svelte";
     import Node from "./node.svelte";
 
-    import { canvas_store } from "$lib/engine/core";
+    import { canvas_store } from "$lib/engine/canvas";
 
 
     let children;

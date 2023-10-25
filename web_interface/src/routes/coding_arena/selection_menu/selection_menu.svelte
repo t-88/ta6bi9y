@@ -3,23 +3,25 @@
     <CategoryBlock title={"Functions"}/>
 </section>
 <section class="block-selection bordered">
-    <EventTemplate title={"Start"}  on_click={(args) => {on_select_event({...args,title : "Start"})}} />
-    <EventTemplate title={"Update"} on_click={(args) => {on_select_event({...args,title : "Update"})}}/>
-    <DebugAction on_click={(args) => {on_select_event({...args,title : "Debug"})}}/>
+    <EventBlock   id="start" on_select_block={on_select_block}  />
+    <EventBlock  id="update" on_select_block={on_select_block}  />
+    <EventBlock id="end" on_select_block={on_select_block}  />
+    <ActionBlock title="Debug" id="debug" on_select_block={on_select_block}  />
 </section>
 
 
 <script>
     import "../../global.css"
     import CategoryBlock from "./comp/category_block.svelte";
-    import EventTemplate from "./comp/selection_blocks/events/event_template.svelte";
-    import DebugAction from "./comp/selection_blocks/actions/debug_action.svelte";
+    import EventBlock from "./comp/selection_blocks/blocks/event_block.svelte";
+    import ActionBlock from "./comp/selection_blocks/blocks/action_block.svelte";
 
     import ca_state from "$lib/engine/coding_arena";
-    function on_select_event(args) {
+    function on_select_block(args) {
         ca_state.cur_element.size._x = args.w;
         ca_state.cur_element.size._y = args.h;
-        ca_state.cur_selected_block.set(args.title);
+        ca_state.cur_element.id.set(args.id);
+        ca_state.cur_element.type.set(args.type);
     }
 </script>
 

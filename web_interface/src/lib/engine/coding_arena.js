@@ -1,9 +1,20 @@
 import { get, writable } from "svelte/store";
 import Vector2Prop from "./props/vector2_prop";
-import BlockStruct from "./structs/block";
 import { AABB_exp } from "./utils";
-import TemplateBlock from "../../routes/coding_arena/arena/blocks/template_block.svelte";
+import CodingBlockTemplate from "./coding_blocks/coding_block_template";
+import EventBlock from "./coding_blocks/event_block";
 
+
+let block_mapper = {
+    event : {
+        start  : (id,x,y,w,h) => new EventBlock(id,x,y,w,h),
+        update : (id,x,y,w,h) => new EventBlock(id,x,y,w,h),
+        end    : (id,x,y,w,h) => new EventBlock(id,x,y,w,h, { has_prev_connector : true, has_next_connector : false}),
+    },
+    action : {
+        debug : (id,x,y,w,h) => new CodingBlockTemplate(id,"action",x,y,w,h),
+    }
+}
 class CodingArena {
     constructor() {
         this.grid_size = 30;
@@ -13,10 +24,11 @@ class CodingArena {
         this.cur_element = {
             pos :  new Vector2Prop(this.grid_size * 5,this.grid_size * 5),
             size : new Vector2Prop(0,0),
+            id : writable(""),
+            type : writable(""),
         };
 
 
-        this.cur_selected_block = writable("");
         this.blocks = writable([]);
 
 
@@ -29,7 +41,7 @@ class CodingArena {
     }
 
     move_to_mouse_pos(x,y) {
-        if(get(this.cur_selected_block) == "") {
+        if(get(this.cur_element.id) == "") {
             this.cur_element.pos._x =  Math.floor(x /  this.grid_size) * this.grid_size;
             this.cur_element.pos._y =  Math.floor(y /  this.grid_size) * this.grid_size;
             return;            
@@ -57,22 +69,49 @@ class CodingArena {
     }
 
     place_block(x,y) {
-        if(get(this.cur_selected_block) == "") return;
+        if(get(this.cur_element.id) == "") return;
 
-        this.blocks.update((val) => [...val,
-            writable(
-                new BlockStruct(
-                    "event",
-                    get(this.cur_selected_block),
-                    get(this.cur_element.pos.x),
-                    get(this.cur_element.pos.y),
-                    get(this.cur_element.size.x),
-                    get(this.cur_element.size.y),
-                    TemplateBlock,
-                )
-            )]);
+        this.blocks.update((val) => {
+            return [
+                ...val,
+                writable(block_mapper[get(this.cur_element.type)][get(this.cur_element.id)](
+                        get(this.cur_element.id),
+                        get(this.cur_element.pos.x),
+                        get(this.cur_element.pos.y),
+                        get(this.cur_element.size.x),
+                        get(this.cur_element.size.y),
+                ))
+            ];
+        })
+
+        // if(get(this.cur_element.type) == "event") {
+        //     this.blocks.update((val) => [...val,
+        //         writable(
+        //             new EventBlock(
+        //                 get(this.cur_element.id),
+        //                 get(this.cur_element.pos.x),
+        //                 get(this.cur_element.pos.y),
+        //                 get(this.cur_element.size.x),
+        //                 get(this.cur_element.size.y),
+        //             )
+        //         )]);
+        // } else {
+        //     this.blocks.update((val) => [...val,
+        //         writable(
+        //             new CodingBlockTemplate(
+        //                 get(this.cur_element.id),
+        //                 "template",
+        //                 get(this.cur_element.pos.x),
+        //                 get(this.cur_element.pos.y),
+        //                 get(this.cur_element.size.x),
+        //                 get(this.cur_element.size.y),
+        //             )
+        //         )]);
+        // }
+
+
         
-        this.cur_selected_block.set("");
+        this.cur_element.id.set("");
         this.cur_element.size._x = 0; this.cur_element.size._y = 0;
     }
 

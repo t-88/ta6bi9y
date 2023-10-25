@@ -1,4 +1,4 @@
-<div bind:this={ref_div} style={style}>
+<div bind:this={ref_div}>
     <svg>
         <line x1="{pos1.x}" y1="{pos1.y}" x2="{pos2.x}" y2="{pos2.y}"  />
     </svg>
@@ -16,16 +16,6 @@
     onMount(() => {
         rect = ref_div.getBoundingClientRect();
     });
-
-
-    let x_diff = pos1.x - pos2.x;
-    let y_diff = pos1.y - pos2.y;
-    let length = Math.sqrt(x_diff * x_diff + y_diff * y_diff);
-
-    $: style = `
-        top :  ${0}px;
-        left : ${0}px;
-    `; 
 </script>
 
 <style>

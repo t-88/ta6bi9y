@@ -19,7 +19,6 @@ class CanvasStore {
         this.cur_hovered = writable(undefined);
 
         this.is_draging_mouse = false;  
-
     }
 
     get _chidlren() { return get(this.chidlren);}

@@ -7,7 +7,8 @@
         <div></div>
         <div></div>
     </div>
-    {/if}    
+    {/if} 
+    <slot />   
 </main>
 
 
@@ -31,6 +32,10 @@
         padding: 20px 30px;
         box-sizing: border-box;
         font-size: 15px;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
     h1 {
         margin: 0;
@@ -40,7 +45,6 @@
 
     .menu-drop-down {
         display: flex;
-        float: right;
         flex-direction: column;
         gap: 4px;
 

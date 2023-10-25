@@ -27,7 +27,7 @@
 <script>
 
     import "../../global.css"
-    import { canvas_store  } from "$lib/engine/core";
+    import { canvas_store  } from "$lib/engine/canvas";
     import RectWidget from "../comps/widgets/rect_widget.svelte";
     import Outline from "./ui/outline.svelte";
     import { calc_mouse_offset } from "$lib";

@@ -1,8 +1,11 @@
 <main   role="presentation" 
-        class={`input ${is_focused ? "input-field-focued" : "input_field"}`}
+        class={`input ${is_focused ? "input-field-focued" : "input_field"} ${$$props.class}`}
+        id = {$$props.id}
         on:click={() => {ref_input.focus()}}  
 > 
-    <div>{`${placeholder}:`} </div>
+    {#if placeholder != ""}
+        <div>{`${placeholder}:`} </div>
+    {/if}
     <input  bind:this={ref_input} 
             style={`max-width : ${max_chars * 15}px`} 
             maxlength="{max_chars}" 

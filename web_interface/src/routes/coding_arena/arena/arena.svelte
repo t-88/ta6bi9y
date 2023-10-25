@@ -10,8 +10,8 @@
 
     <div>
         {#each blocks as block}
-            <svelte:component this={get(block).elem_block} placed={true} block_pointer = {block} class = "outlined outline_placed">
-                <h2>{get(block).id}</h2>
+            <svelte:component this={get(block).elem_block}  block_pointer = {block} {...get(block).props} class = "outlined outline_placed">
+                <h2>{get(block).title}</h2>
             </svelte:component>
         {/each}
     </div>
@@ -51,7 +51,9 @@
     let mouse_pos = {x : 0, y : 0};
 
     let cur_selected_block;
-    ca_state.cur_selected_block.subscribe((val) => cur_selected_block = val);
+    ca_state.cur_element.id.subscribe((val) => {
+        cur_selected_block = val.slice(0,1).toUpperCase() + val.slice(1);
+    });
     let blocks;
     ca_state.blocks.subscribe((val) => { blocks = val; });
     

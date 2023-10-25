@@ -1,13 +1,21 @@
-<main role="presentation" class={$$props.class} on:click={() => on_click({w :240, h : 60})}>
+<main bind:this={ref_element} role="presentation" class={$$props.class} on:click={on_click_callback}>
     <h1>{title}</h1>
-    <slot />
-
 </main>
 
 
 <script>
-    export let title;
-    export let on_click;
+    export let on_select_block = () => {};
+    export let id = "template";
+    export let title = "template";
+    export let type = "template";
+    let ref_element;
+
+
+    function on_click_callback() {
+        let rect = ref_element.getBoundingClientRect();
+        on_select_block({id,type,title,w :rect.width, h : rect.height});
+    }
+
 </script>
 
 <style>
