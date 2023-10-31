@@ -14,6 +14,7 @@
             on:change={(event) => {on_change(event.target.value)}}
             on:focusin =    {() => {is_focused = true} }
             on:focusout = {() => { is_focused = false}}
+            placeholder = {label}
     >
 </main>
 
@@ -21,6 +22,7 @@
 
 <script>
     export let placeholder = "";
+    export let label = "";
     export let max_chars = 20;
     export let value = "";
     export let ref_input;

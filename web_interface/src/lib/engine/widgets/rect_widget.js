@@ -5,9 +5,10 @@ import Vector2Prop from "../props/vector2_prop";
 import RectWidgetComp from "../../../routes/layout_interface/comps/widgets/rect_widget.svelte";
 import BackgroundPropComp from "../../../routes/layout_interface/comps/props/background_prop.svelte";
 import SizePropComp from "../../../routes/layout_interface/comps/props/size_prop.svelte";
+import UserIdPropComp from "../../../routes/layout_interface/comps/props/user_id_prop.svelte";
 
 class RectWidget {
-    constructor(x, y, w, h,color = undefined) {
+    constructor(x, y, w, h,color = undefined, user_uuid = "") {
         this.id = "Rect";
         this.uuid = crypto.randomUUID();
 
@@ -15,6 +16,7 @@ class RectWidget {
             fill_color : new ColorProp(color),
             position :  new Vector2Prop(x,y),
             size :  new Vector2Prop(w,h),
+            user_id : writable(""),
         };
         this.is_hovering_over = writable(false);
 
@@ -23,9 +25,13 @@ class RectWidget {
         this.pmenu_props = {
             background: {comp : BackgroundPropComp , comp_props : {prop : this.props.fill_color} },
             size: {comp : SizePropComp , comp_props : {prop : this.props.size} },
+            user_id: {comp : UserIdPropComp , comp_props : {prop : this.props.user_id, placeholder : "user id"} },
+            
         };
-
         this.functions = writable({});
+
+        this.user_data = {};
+        this.deleted = writable(false);
     }
 
     get _x() { return this.props.position._x; }
@@ -44,7 +50,13 @@ class RectWidget {
     copy() {
         let rect = new RectWidget(this._x,this._y,this._w,this._h,this.props.fill_color._color);
         rect.functions.set(get(this.functions));
+        rect.props.user_id.set(get(this.props.user_id));
         return rect;
+    }
+
+    AABB(rect) {
+        return rect._x + rect._w > this._x && rect._y + rect._h > this._y &&
+               this._x + this._w > rect._x && this._y + this._h > rect._y;
     }
 }
 

@@ -95,6 +95,7 @@
     main {
         width: 25%;
         min-width: 350px;
+        overflow: scroll;
     }
     #prop-container {
         margin-top: 40px;

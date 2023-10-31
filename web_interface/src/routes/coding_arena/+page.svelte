@@ -17,6 +17,7 @@
         padding: 0;
         margin: 0;
         font-family: "inter";
+        overflow: hidden;
     }
     :global(::-webkit-scrollbar) { display: none; }
 
