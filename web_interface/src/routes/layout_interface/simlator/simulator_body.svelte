@@ -22,8 +22,6 @@
     canvas_store.cur_widget.subscribe(value => {  cur_widget =  value; });
 
     sim.start();
-
-
 </script>
 
 <style>

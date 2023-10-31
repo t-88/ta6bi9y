@@ -23,7 +23,7 @@ class Simulator {
 
     create_widget(id,props) {
         if(id.toLowerCase() == "rect") {
-            this.children.update((value) => { return [...value,new RectWidget(props)]; });
+            this.children.update((value) => { return [...value,new RectWidget(...props)]; });
         } 
     }
 
@@ -37,10 +37,8 @@ class Simulator {
 
             let _ = this;
             let cur = child;
-
-            console.log(start_func);
             
-
+            console.log(start_func);
             // calling eval destructive, anyhow let continue
             eval(start_func);
         });
