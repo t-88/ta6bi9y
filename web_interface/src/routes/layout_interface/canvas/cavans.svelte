@@ -4,22 +4,20 @@
         <div id="phone-bar-top" style={`height: ${$phone_top_height}px`} class="phone-bar bordered"></div>
         
         {#if !sim_is_running}
-            <SimulatorBody />
-        {:else}
             <CanvasBody />
+        {:else}
+            <SimulatorBody />
         {/if}
-
-
         <div id="phone-bar-bottom" style={`height: ${$phone_bottom_height}px`} class="phone-bar bordered"></div>
     </div>
         
-    <Button class="btn" style={`right:  10px;`} title="Run" on_click={run_app} />
+    <Button class="btn" style={`right:  10px;`} title={btn_text} on_click={run_app} />
     <!-- <Button class="btn" style={`left:  10px;`} title="Code!"on_click={on_code} /> -->
 </main>
 
 <script>
     import { goto } from "$app/navigation";
-
+    import { get } from "svelte/store";
     import { 
         canvas_width        ,
         canvas_height       ,
@@ -27,15 +25,14 @@
         phone_bottom_height ,
     } from "$lib/state/store";
 
-    import SimulatorBody from "../simulator/simulator_body.svelte";
+    import SimulatorBody from "../simlator/simulator_body.svelte";
     import sim from "$lib/engine/simulator";
+    import "../../global.css"
 
 
     let sim_is_running = false;
     sim.is_running.subscribe((val) => sim_is_running = val);
-
     
-    import "../../global.css"
 
     import CanvasBody from "./canvas_body.svelte";
     import Button from "../comps/ui/button.svelte";
@@ -46,11 +43,10 @@
     }
 
     function run_app() {
-        sim.is_running.set(true);
+        sim.is_running.set(!get(sim.is_running));
     }
-
-    
-
+    let btn_text = "Run";
+    sim.is_running.subscribe((val) => btn_text = val ? "Exit" : "Run");
 </script>
 
 

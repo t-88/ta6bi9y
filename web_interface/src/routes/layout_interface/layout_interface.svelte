@@ -1,8 +1,4 @@
 <main>
-    {#if !is_running} 
-        <div id="overlay"></div>
-    {/if}
-
     <SelectionContainer />
     <Cavans />
     <PropMenu />
@@ -38,18 +34,5 @@
         height: 100vh;
         
         display: flex;
-    }
-    #overlay {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(128, 128, 128, 0.242);
-        z-index: 1;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        pointer-events: none;
     }
 </style>

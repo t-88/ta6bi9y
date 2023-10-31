@@ -18,7 +18,7 @@
 
 
     let children;
-    canvas_store.chidlren.subscribe((value) => {children = value});  
+    canvas_store.children.subscribe((value) => {children = value});  
 
 </script>
 

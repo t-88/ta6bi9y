@@ -1,18 +1,18 @@
-<div style={style}>
+<div style={style}> 
 </div>
 
 <script>
-    export let rect;
+    export let rect_props;
 
+    let sizing = {x : 0, y : 0, w : 0 , h : 0};
+    rect_props.position.x.subscribe((value) => {sizing.x = value});
+    rect_props.position.y.subscribe((value) => {sizing.y = value});
+    rect_props.size.x.subscribe((value) => {sizing.w = value});
+    rect_props.size.y.subscribe((value) => {sizing.h = value});
 
-    let sizing = { x : rect._x, y : rect._y, w : rect._w, h : rect._h };
-    rect.props.position.x.subscribe((value) => {sizing.x = value});
-    rect.props.position.y.subscribe((value) => {sizing.y = value});
-    rect.props.size.x.subscribe((value) => {sizing.w = value});
-    rect.props.size.y.subscribe((value) => {sizing.h = value});
+    let fill_color  = rect_props.fill_color._color;
+    rect_props.fill_color.color.subscribe((value) => {fill_color = value});
 
-    let fill_color  = rect.props.fill_color._color;
-    rect.props.fill_color.color.subscribe((value) => {fill_color = value});
 
     $: style = `
         left:   ${sizing.x}px;

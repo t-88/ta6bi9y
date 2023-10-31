@@ -7,13 +7,11 @@
 
 
         {#each children as child}
-            {#if child.id == "Rect"} 
-                <RectWidget rect={child} />
-            {/if}
+            <svelte:component this={child.component} {...child.component_props} />
         {/each}
 
         {#if cur_widget} 
-            <RectWidget rect={cur_widget} />
+            <svelte:component this={cur_widget.component} {...cur_widget.component_props} />
         {/if}
 
 
@@ -28,9 +26,8 @@
 
     import "../../global.css"
     import { canvas_store  } from "$lib/engine/canvas";
-    import RectWidget from "../comps/widgets/rect_widget.svelte";
-    import Outline from "./ui/outline.svelte";
     import { calc_mouse_offset } from "$lib";
+    import Outline from "./ui/outline.svelte";
 
 
 
@@ -38,6 +35,7 @@
         canvas_store.on_mouse_click(mouse_pos.x,mouse_pos.y);
     }
     function on_mouse_down(_) {
+
         mouse_down = true;
         canvas_store.on_mouse_down(mouse_pos.x,mouse_pos.y);
     }
@@ -62,7 +60,7 @@
     let cur_widget = undefined;
     let cur_hovered = undefined;
 
-    canvas_store.chidlren.subscribe(value => { children = [...value]; });
+    canvas_store.children.subscribe(value => { children = [...value]; });
     canvas_store.cur_widget.subscribe(value => {  cur_widget =  value; });
     canvas_store.cur_hovered.subscribe(value => {  cur_hovered =  value; });
 </script>

@@ -22,11 +22,13 @@
 <style>
     .color-selector {
         width:  35px;
+        min-width:  35px;
         height: 35px;
         
         border-radius: 5px;
         position: relative;
         background-color: white;
+    
     }
     input {
         position: absolute;

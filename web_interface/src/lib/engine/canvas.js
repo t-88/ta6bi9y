@@ -4,15 +4,16 @@ import {cur_selected_widget } from "$lib/state/store";
 import pmenu_state from "./prop_menu";
 
 
-
 import MouseStruct from "./structs/mouse";
 import RectWidget from "./widgets/rect_widget";
-
+import AppWidget from "./widgets/app_widget";
 
 
 class CanvasStore {
     constructor() {
-        this.chidlren = writable([]);
+        this.children = writable([
+            new AppWidget(),
+        ]);
         this.mouse_data = new MouseStruct();
 
         this.cur_widget = writable(undefined);
@@ -21,8 +22,9 @@ class CanvasStore {
         this.is_draging_mouse = false;  
     }
 
-    get _chidlren() { return get(this.chidlren);}
-    
+    get _children() { return get(this.children);}
+
+
     calc_cur_widge_size() {
         if(!get(this.cur_widget)) return;
 
@@ -58,7 +60,7 @@ class CanvasStore {
             get(this.cur_widget)._h = 100;
         }
 
-        this.chidlren.update((old) => [...old,get(this.cur_widget)]);
+        this.children.update((old) => [...old,get(this.cur_widget)]);
         this.cur_widget.set(undefined);
         this.is_draging_mouse = false;
 
@@ -89,15 +91,15 @@ class CanvasStore {
         let mouse = {x : x , y : y, w : 1, h : 1};
         let _cur_hovered = undefined;
         
-        for (let i = 0; i < get(this.chidlren).length; i++) {
-            let rect = get(this.chidlren)[i];
+        for (let i = 0; i < get(this.children).length; i++) {
+            let rect = get(this.children)[i];
             rect = {x : rect._x,y : rect._y,w : rect._w,h : rect._h,}
 
             if(AABB(mouse, rect )) {
-                get(this.chidlren)[i]._is_hovering_over = true;
-                _cur_hovered = get(this.chidlren)[i];
+                get(this.children)[i]._is_hovering_over = true;
+                _cur_hovered = get(this.children)[i];
             } else {
-                get(this.chidlren)[i]._is_hovering_over = false;
+                get(this.children)[i]._is_hovering_over = false;
             }
         }
         this.cur_hovered.set(_cur_hovered);
