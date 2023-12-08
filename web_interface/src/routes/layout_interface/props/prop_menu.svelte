@@ -41,8 +41,6 @@
     import { get } from "svelte/store";
 
     import Bar from "../comps/ui/bar.svelte";
-    import BackgroundProp from "../comps/props/background_prop.svelte";
-    import SizeProp from "../comps/props/size_prop.svelte";
     import Button from "../comps/ui/button.svelte";
     import InputField from "../comps/ui/input_field.svelte";
     import FunctionArea from "./function_area.svelte";

@@ -5,9 +5,10 @@ import pmenu_state from "./prop_menu";
 
 
 import MouseStruct from "./structs/mouse";
-import RectWidget from "./widgets/rect_widget";
-import AppWidget from "./widgets/app_widget";
+import RectWidget, { create_rect_widget } from "./widgets/rect_widget";
+import AppWidget, { create_app_widget } from "./widgets/app_widget";
 
+import pong_src from "$lib/apps/ping_pong/src";
 
 class CanvasStore {
     constructor() {
@@ -20,10 +21,50 @@ class CanvasStore {
         this.cur_hovered = writable(undefined);
 
         this.is_draging_mouse = false;  
+
+        
+        this.src = pong_src;
+        if(this.src) {
+            this.children.set([create_app_widget(this.src.app)]);
+            for(let i = 0 ; i < this.src.app.children.length; i++) {
+                let elem = this.src.app.children[i];
+                this.children.update((val) => [...val,this.create_element(elem)]);
+            }
+        }
+
     }
 
     get _children() { return get(this.children);}
 
+
+    create_element(elem) {
+        switch(elem.type) {
+            case "rect":  return create_rect_widget(elem); break;
+        }
+    }
+
+
+    compile_app() {
+        let app = this._children[0].compile_widget()
+
+        // first elem is always the app 
+        for (let i = 1; i < this._children.length; i++) {
+            let child = this._children[i];
+            app.children.push(child.compile_widget());
+        }
+
+        this.src = { app };
+    }
+
+    export_app() {
+        this.compile_app();
+
+        let uri_content = URL.createObjectURL(new Blob([JSON.stringify(this.src)],{type : "text/plain"}));
+        let link = document.createElement('a');
+        link.href = uri_content;
+        link.download = "src.txt";
+        link.click();
+    }
 
     calc_cur_widge_size() {
         if(!get(this.cur_widget)) return;
@@ -41,7 +82,6 @@ class CanvasStore {
         }         
         this.cur_widget.update((value) => value);
     }
-    
     on_mouse_down(x , y) {
         if(get(cur_selected_widget) == "") return;
 

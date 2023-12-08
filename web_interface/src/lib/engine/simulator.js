@@ -1,10 +1,7 @@
 import { get , writable } from "svelte/store";
 import { canvas_store } from "./canvas";
-import RectWidget from "./widgets/rect_widget";
 import { browser } from "$app/environment";
-
 import { canvas_height,canvas_width } from "$lib/state/store";
-
 
 class Simulator {
     constructor() {
@@ -48,10 +45,10 @@ class Simulator {
         return children;
     }
 
-    create_widget(id,props) {
+    create_widget(type,props) {
         let widget = undefined;
-        if(id.toLowerCase() == "rect") {
-            widget = new RectWidget(...props);
+        if(type == "rect") {
+            widget = canvas_store.create_element(props);
             this.children.update((value) => { return [...value,widget]; });
         } 
         return widget;
@@ -67,11 +64,25 @@ class Simulator {
         }
         return undefined;
     }
+    find_widget_by_class(id) {
+        let children = get(this.children);
+        let out = [];
+        for (let i = 0; i < children.length; i++) {
+            
+            if(get(children[i].props.user_id) == id) {
+                out.push(children[i])
+            }
+        }
+        return out;
+    }
+
+
 
     on_start() {
         this.children.set(this.copy_children());
+
         get(this.children).forEach((child) =>  {
-            let start_func = get(child.functions)["Start"];
+            let start_func = get(child.functions)["start"];
             if(!start_func) { return; }
 
             let _ = this;
@@ -105,14 +116,10 @@ class Simulator {
             let cur = child;
 
             if(get(child.deleted)) {
-                
-                // console.log(i,child._x,child._y,child._w,child._h);
-                // children.splice(i,1);
-                // changed = true;
                 continue;
             }
 
-            let update_function = get(child.functions)["Update"];
+            let update_function = get(child.functions)["update"];
             if(!update_function) { continue; }
             // NOTE: calling eval is destructive, anyhow let continue
             eval(update_function);

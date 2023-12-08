@@ -12,7 +12,8 @@
     </div>
         
     <Button class="btn" style={`right:  10px;`} title={btn_text} on_click={run_app} />
-    <!-- <Button class="btn" style={`left:  10px;`} title="Code!"on_click={on_code} /> -->
+    <Button class="btn" style={`left:  10px;`} title="Compile" on_click={compile_app} />
+    <Button class="btn" style={`left:  40px;`} title="Export" on_click={export_app} />
 </main>
 
 <script>
@@ -36,6 +37,7 @@
 
     import CanvasBody from "./canvas_body.svelte";
     import Button from "../comps/ui/button.svelte";
+    import { canvas_store } from "$lib/engine/canvas";
 
 
     function on_code() {
@@ -45,8 +47,19 @@
     function run_app() {
         sim.is_running.set(!get(sim.is_running));
     }
+    function compile_app() {
+        canvas_store.compile_app();
+    }
+
+    function export_app() {
+        canvas_store.export_app();
+    }
+
     let btn_text = "Run";
     sim.is_running.subscribe((val) => btn_text = val ? "Exit" : "Run");
+
+
+
 </script>
 
 
@@ -84,8 +97,6 @@
     main :global(.btn) {
         position: absolute;
         bottom: 10px;
-        width : 80px;
-        height : "40px";
     }
 
 </style>

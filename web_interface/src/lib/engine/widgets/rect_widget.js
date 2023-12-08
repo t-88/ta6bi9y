@@ -9,8 +9,8 @@ import UserIdPropComp from "../../../routes/layout_interface/comps/props/user_id
 
 class RectWidget {
     constructor(x, y, w, h,color = undefined, user_uuid = "") {
-        this.id = "Rect";
-        this.uuid = crypto.randomUUID();
+        this.type = "rect";
+        // this.uuid = crypto.randomUUID();
 
         this.props = {
             fill_color : new ColorProp(color),
@@ -58,7 +58,25 @@ class RectWidget {
         return rect._x + rect._w > this._x && rect._y + rect._h > this._y &&
                this._x + this._w > rect._x && this._y + this._h > rect._y;
     }
+
+
+    compile_widget() {
+        return {
+            id : get(this.props.user_id),
+            size: [get(this.props.size.x),get(this.props.size.y)],
+            pos: [get(this.props.position.x),get(this.props.position.y)],
+            color : get(this.props.fill_color.color),
+            functions : get(this.functions),
+        };
+    }
 }
-
-
 export default RectWidget;
+
+
+export function create_rect_widget(elem) {
+    let widget = new RectWidget(elem.pos[0],elem.pos[1],elem.size[0],elem.size[1]);
+    widget.props.user_id.set(elem.id);
+    widget.functions.set(elem.functions);
+
+    return widget;
+}

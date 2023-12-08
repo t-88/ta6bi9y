@@ -12,8 +12,7 @@
 
     import sim from "$lib/engine/simulator";
 
-    let is_running = false;
-    sim.is_running.subscribe((val) => is_running = val);
+    
 </script>
 
 
