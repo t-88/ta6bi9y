@@ -1,5 +1,5 @@
 # Ta6bi9y 
-**stopped dev** go to [epic-editor](https://github.com/t-88/epic-editor) for new version
+**stopped dev** go to [epic-editor](https://github.com/t-88/epic-editor) for new version     
 it's WYSIWYG, where u can turn your designs to native apps with a single click.       
 
 # Basic Idea
